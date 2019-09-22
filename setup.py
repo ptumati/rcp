@@ -47,7 +47,7 @@ setup(
     name="realclearpolitics",
     packages=["rcp"],
     entry_points={
-        "console_scripts": ['rcp = rcp.rcp:main']
+        "console_scripts": ['rcp = rcp.main:main']
     },
     version='1.0.0',
     description="Simple script to scrape polling data from RealClearPolitics and output as .csv",
