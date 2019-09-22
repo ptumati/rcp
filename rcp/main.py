@@ -22,7 +22,7 @@ def main():
         if not p:
             sys.exit("No poll data found.")
         print("Downloading: %s" % fn)
-        to_csv(fn, pd)
+        to_csv(fn, p)
 
 
 if __name__ == '__main__':
