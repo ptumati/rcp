@@ -49,7 +49,7 @@ setup(
     entry_points={
         "console_scripts": ['rcp = rcp.main:main']
     },
-    version='1.0.0',
+    version='1.2.0',
     description="Simple script to scrape polling data from RealClearPolitics and output as .csv",
     long_description=long_descr,
     keywords=['politics', 'polls', 'rcp', 'realclearpolitics', 'web scraping'],
