@@ -16,13 +16,13 @@ args = parser.parse_args()
 
 
 def main():
-    for pd in args.url:
-        fn = args.output if args.output else pd.rsplit('/', 1)[-1][:-5] + ".csv"
-        p = get_poll_data(pd, d=False)
-        if not p:
+    for url in args.url:
+        filename = args.output if args.output else url.rsplit('/', 1)[-1][:-5] + ".csv"
+        poll_data = get_poll_data(url, d=False)
+        if not poll_data:
             sys.exit("No poll data found.")
-        print("Downloading: %s" % fn)
-        to_csv(fn, p)
+        print("Downloading: %s" % filename)
+        to_csv(filename, poll_data)
 
 
 if __name__ == '__main__':

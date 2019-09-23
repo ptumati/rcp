@@ -86,8 +86,8 @@ def get_poll_data(pd, d=True):
     return arr
 
 
-def to_csv(fn, p):
-    with open(fn, "w") as f:
+def to_csv(filename, poll_data):
+    with open(filename, "w") as f:
         writer = csv.writer(f)
-        writer.writerows(p)
+        writer.writerows(poll_data)
     print("CSV created.")
