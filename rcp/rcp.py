@@ -8,13 +8,12 @@ except ImportError:
     from urllib2 import urlopen
 
 import csv
-import json
 
 base = 'https://www.realclearpolitics.com'
 
 
-def get_polls(q=None, p=None):
-    response = urlopen('%s/epolls/latest_polls/' % base)
+def get_polls(url='%s/epolls/latest_polls/' % base, q=None, p=None):
+    response = urlopen(url)
 
     soup = BeautifulSoup(response, 'html.parser')
 
