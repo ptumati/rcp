@@ -12,7 +12,13 @@ import csv
 base = 'https://www.realclearpolitics.com'
 
 
-def get_polls(url='%s/epolls/latest_polls/' % base, q=None, p=None):
+def get_polls(url='%s/epolls/latest_polls/' % base, candidate=None, pollster=None):
+    """
+    :param url: The URL of the polls. By default this function will search the latest polls on RCP.
+    :param candidate: The election candidate.
+    :param pollster: The pollster, i.e. Fox, CNN, Politico, etc.
+    :return:
+    """
     response = urlopen(url)
 
     soup = BeautifulSoup(response, 'html.parser')
@@ -32,7 +38,7 @@ def get_polls(url='%s/epolls/latest_polls/' % base, q=None, p=None):
             t = race.find('a').text
             n = col.find('td', {'class': 'lp-poll'}).find('a').text
 
-            if (q and q.lower() not in t.lower()) or (p and p.lower() not in n.lower()):
+            if (candidate and candidate.lower() not in t.lower()) or (pollster and pollster.lower() not in n.lower()):
                 continue
 
             v = {
@@ -46,11 +52,16 @@ def get_polls(url='%s/epolls/latest_polls/' % base, q=None, p=None):
     return polling_data
 
 
-def get_poll_data(pd, d=True):
-    if base not in pd:
+def get_poll_data(poll, csv_output=False):
+    """
+    :param poll: The URL of the poll.
+    :param csv_output: Set to True to return a table like data structure if writing to CSV.
+    :return: 
+    """
+    if base not in poll:
         return
 
-    response = urlopen(pd)
+    response = urlopen(poll)
 
     soup = BeautifulSoup(response, 'html.parser')
     fp = soup.find("div", {"id": 'polling-data-full'})
@@ -66,11 +77,11 @@ def get_poll_data(pd, d=True):
         cols = row.find_all(['th', 'td'])
         p.append([ele.text.strip() for ele in cols])
 
-    if not d:
+    if csv_output:
         return p
 
     arr = [{
-        'poll': pd,
+        'poll': poll,
         'data': []
     }]
 

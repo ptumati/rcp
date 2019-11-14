@@ -52,7 +52,7 @@ Search for Fox News poll numbers for Trump:
     from rcp import get_polls, get_poll_data
     from pprint import pprint
 
-    polls = get_polls(q="Trump", p="Fox")
+    polls = get_polls(candidate="Trump", pollster="Fox")
 
     for poll in polls:
         td = get_poll_data(poll['url'])
@@ -84,7 +84,7 @@ Write a poll to CSV:
 
     from rcp import get_polls, get_poll_data, to_csv
 
-    polls = get_polls(q="Biden")[0]
-    data = get_poll_data(polls['url'])
+    polls = get_polls(candidate="Biden")[0]
+    data = get_poll_data(polls['url'], csv_output=True)
     to_csv('output.csv', data)
 

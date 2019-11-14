@@ -49,8 +49,8 @@ setup(
     entry_points={
         "console_scripts": ['rcp = rcp.main:main']
     },
-    version='1.2.0',
-    description="Simple script to scrape polling data from RealClearPolitics and output as .csv",
+    version='1.2.1',
+    description="Python client for RealClearPolitics.",
     long_description=long_descr,
     keywords=['politics', 'polls', 'rcp', 'realclearpolitics', 'web scraping'],
     author="Anthony Bloomer",

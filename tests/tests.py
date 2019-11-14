@@ -8,23 +8,23 @@ class RCPTest(unittest.TestCase):
 
     def test_get_polling_data(self):
         p = get_polls()
-        polling_data = get_poll_data(p[0]['url'], d=True)
+        polling_data = get_poll_data(p[0]['url'], csv_output=True)
         self.assertIsNotNone(polling_data)
         self.assertIn('poll', polling_data[0])
         self.assertIn('data', polling_data[0])
 
     def test_get_polling_data_by_name(self):
-        polls = get_polls(q='trump')
+        polls = get_polls(candidate='trump')
         for p in polls:
             self.assertIn('trump', p['title'].lower())
 
     def test_get_polling_data_by_poll(self):
-        polls = get_polls(p='cnn')
+        polls = get_polls(pollster='cnn')
         for p in polls:
             self.assertIn('cnn', p['poll'].lower())
 
     def test_get_polling_data_by_invalid_poll(self):
-        polls = get_polls(p='wow')
+        polls = get_polls(pollster='wow')
         self.assertEqual(len(polls), 0)
 
     def test_get_polling_data_invalid_url(self):
