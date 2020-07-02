@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
-
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib2 import urlopen
-
 import csv
 
+import urllib3
+from bs4 import BeautifulSoup
+
 base = "https://www.realclearpolitics.com"
+
+
+def _html(url):
+    http = urllib3.PoolManager()
+    res = http.request("GET", url)
+    if res.status is not 200:
+        raise Exception(res.status)
+    soup = BeautifulSoup(res.data, "html.parser")
+    return soup
 
 
 def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=None):
@@ -19,9 +24,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
     :param pollster: The pollster, i.e. Fox, CNN, Politico, etc.
     :return:
     """
-    response = urlopen(url)
-
-    soup = BeautifulSoup(response, "html.parser")
+    soup = _html(url)
 
     fp = soup.find_all("table", {"class": "sortable"})
 
@@ -39,7 +42,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
             n = col.find("td", {"class": "lp-poll"}).find("a").text
 
             if (candidate and candidate.lower() not in t.lower()) or (
-                pollster and pollster.lower() not in n.lower()
+                    pollster and pollster.lower() not in n.lower()
             ):
                 continue
 
@@ -62,9 +65,7 @@ def get_poll_data(poll, csv_output=False):
     if base not in poll:
         return
 
-    response = urlopen(poll)
-
-    soup = BeautifulSoup(response, "html.parser")
+    soup = _html(poll)
     fp = soup.find("div", {"id": "polling-data-full"})
 
     if not fp:

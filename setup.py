@@ -49,7 +49,7 @@ setup(
     entry_points={
         "console_scripts": ['rcp = rcp.main:main']
     },
-    version='1.2.1',
+    version='1.3.0',
     description="Python client for RealClearPolitics.",
     long_description=long_descr,
     keywords=['politics', 'polls', 'rcp', 'realclearpolitics', 'web scraping'],
@@ -58,7 +58,8 @@ setup(
     url="https://github.com/AnthonyBloomer/rcp",
     install_requires=[
         'beautifulsoup4',
-        'requests'
+        'urllib3',
+        'PTable'
     ],
     classifiers=[
         'License :: OSI Approved :: MIT License',
