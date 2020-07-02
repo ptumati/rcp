@@ -15,7 +15,7 @@ Usage
 
 ::
 
-    usage: rcp [-h] [--output [OUTPUT]] url [url ...]
+    usage: rcp [-h] [--output [OUTPUT]] [--generate-table] url [url ...]
 
     positional arguments:
       url                The url of the polling data.
@@ -23,6 +23,8 @@ Usage
     optional arguments:
       -h, --help         show this help message and exit
       --output [OUTPUT]  The output file name.
+      --generate-table   Pass this argument to generate a table.
+
 
 
 Examples
