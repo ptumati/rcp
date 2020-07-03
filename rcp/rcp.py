@@ -22,7 +22,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
     :param url: The URL of the polls. By default this function will search the latest polls on RCP.
     :param candidate: The election candidate.
     :param pollster: The pollster, i.e. Fox, CNN, Politico, etc.
-    :return:
+    :return: arr
     """
     soup = _html(url)
 
@@ -60,7 +60,7 @@ def get_poll_data(poll, csv_output=False):
     """
     :param poll: The URL of the poll.
     :param csv_output: Set to True to return a table like data structure if writing to CSV.
-    :return: 
+    :return: arr
     """
     if base not in poll:
         return
