@@ -1,6 +1,6 @@
 import unittest
 
-from rcp import get_poll_data, get_polls
+from rcp import get_poll_data, get_polls, to_csv
 import os
 
 
@@ -16,6 +16,19 @@ class RCPTest(unittest.TestCase):
         polls = get_polls(candidate="trump")
         for p in polls:
             self.assertIn("trump", p["title"].lower())
+
+    def test_to_csv(self):
+        csv_file = "output.csv"
+        success = False
+        polls = get_polls(candidate="Biden")[0]
+        data = get_poll_data(polls["url"], csv_output=True)
+        to_csv("output.csv", data)
+        cur_dir = os.getcwd()
+        file_list = os.listdir(cur_dir)
+        if csv_file in file_list:
+            success = True
+            os.remove(csv_file)
+        self.assertTrue(success)
 
     def test_get_polling_data_by_poll(self):
         polls = get_polls(pollster="cnn")
