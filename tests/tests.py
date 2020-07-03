@@ -1,7 +1,7 @@
+import os
 import unittest
 
 from rcp import get_poll_data, get_polls, to_csv
-import os
 
 
 class RCPTest(unittest.TestCase):
@@ -16,6 +16,8 @@ class RCPTest(unittest.TestCase):
         polls = get_polls(candidate="trump")
         for p in polls:
             self.assertIn("trump", p["title"].lower())
+            td = get_poll_data(p["url"])
+            self.assertIsNotNone(td)
 
     def test_to_csv(self):
         csv_file = "output.csv"
