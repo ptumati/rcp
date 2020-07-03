@@ -1,6 +1,8 @@
 rcp
 ===
 
+|Build Status| |codecov|
+
 Python client for RealClearPolitics. 
 
 Install
@@ -110,3 +112,9 @@ Create table:
         x.add_row(row.values())
 
     print(x)
+
+.. |Build Status| image:: https://travis-ci.org/AnthonyBloomer/rcp.svg?branch=master
+   :target: https://travis-ci.org/AnthonyBloomer/rcp
+   
+.. |codecov| image:: https://codecov.io/gh/AnthonyBloomer/rcp/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/AnthonyBloomer/rcp
