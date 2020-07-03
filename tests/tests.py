@@ -14,10 +14,11 @@ class RCPTest(unittest.TestCase):
 
     def test_get_polling_data_by_name(self):
         polls = get_polls(candidate="trump")
+        first = polls[0]
         for p in polls:
             self.assertIn("trump", p["title"].lower())
-            td = get_poll_data(p["url"])
-            self.assertIsNotNone(td)
+        td = get_poll_data(first["url"])
+        self.assertIsNotNone(td)
 
     def test_to_csv(self):
         csv_file = "output.csv"

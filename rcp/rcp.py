@@ -9,12 +9,12 @@ base = "https://www.realclearpolitics.com"
 
 
 def _html(url):
-    http = urllib3.PoolManager()
-    res = http.request("GET", url)
-    if res.status is not 200:
-        raise Exception(res.status)
-    soup = BeautifulSoup(res.data, "html.parser")
-    return soup
+    with urllib3.PoolManager() as manager:
+        res = manager.request("GET", url)
+        if res.status is not 200:
+            raise Exception(res.status)
+        soup = BeautifulSoup(res.data, "html.parser")
+        return soup
 
 
 def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=None):
