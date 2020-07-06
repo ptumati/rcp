@@ -49,7 +49,7 @@ setup(
     entry_points={
         "console_scripts": ['rcp = rcp.main:main']
     },
-    version='1.3.0',
+    version='1.4.0',
     description="Python client for RealClearPolitics.",
     long_description=long_descr,
     keywords=['politics', 'polls', 'rcp', 'realclearpolitics', 'web scraping'],

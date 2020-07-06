@@ -17,8 +17,9 @@ def _html(url):
         return soup
 
 
-def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=None):
+def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=None, state=None):
     """
+    :param state: The state to get polling data for.
     :param url: The URL of the polls. By default this function will search the latest polls on RCP.
     :param candidate: The election candidate.
     :param pollster: The pollster, i.e. Fox, CNN, Politico, etc.
@@ -26,7 +27,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
     """
     soup = _html(url)
 
-    fp = soup.find_all("table", {"class": "sortable"})
+    fp = soup.find_all("div", {"class": "table-races"})
 
     polling_data = []
 
@@ -34,6 +35,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
         cols = l.find_all("tr")
         for col in cols:
             race = col.find("td", {"class": "lp-race"})
+            result = col.find("td", {"class": "lp-results"})
 
             if not race:
                 continue
@@ -41,8 +43,10 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
             t = race.find("a").text
             n = col.find("td", {"class": "lp-poll"}).find("a").text
 
-            if (candidate and candidate.lower() not in t.lower()) or (
-                    pollster and pollster.lower() not in n.lower()
+            if (
+                    (candidate and candidate.lower() not in t.lower())
+                    or (pollster and pollster.lower() not in n.lower())
+                    or (state and state.lower() not in t.lower())
             ):
                 continue
 
@@ -50,6 +54,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
                 "url": base + race.find("a")["href"],
                 "title": t,
                 "poll": n,
+                "result": result.text
             }
             polling_data.append(v)
 
