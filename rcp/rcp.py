@@ -9,6 +9,11 @@ base = "https://www.realclearpolitics.com"
 
 
 def _html(url):
+    """
+    Get the poll HTML.
+    :param url: The url of the poll.
+    :return: str
+    """
     with urllib3.PoolManager() as manager:
         res = manager.request("GET", url)
         if res.status is not 200:
@@ -18,6 +23,12 @@ def _html(url):
 
 
 def create_table(p, html_format=False):
+    """
+    Generate poll table.
+    :param p: The poll data.
+    :param html_format: Set to True to return HTML table.
+    :return: str
+    """
     from prettytable import PrettyTable
 
     x = PrettyTable()
