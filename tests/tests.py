@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from rcp import get_poll_data, get_polls, to_csv
+from rcp import get_poll_data, get_polls, to_csv, create_table
 
 
 class RCPTest(unittest.TestCase):
@@ -45,6 +45,13 @@ class RCPTest(unittest.TestCase):
     def test_get_polling_data_invalid_url(self):
         polling_data = get_poll_data("https://www.rcp.com")
         self.assertIsNone(polling_data)
+
+    def test_create_table(self):
+        td = get_poll_data(
+            "https://www.realclearpolitics.com/epolls/2020/president/me/maine_trump_vs_biden-6922.html"
+        )
+
+        self.assertIsNotNone(create_table(td, html_format=True))
 
     def test_write_to_csv(self):
         poll = "https://www.realclearpolitics.com/epolls/other/president_trump_job_approval_foreign_policy-6183.html"

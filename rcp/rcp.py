@@ -60,6 +60,7 @@ def get_polls(
         for col in cols:
             race = col.find("td", {"class": "lp-race"})
             result = col.find("td", {"class": "lp-results"})
+            spread = col.find("td", {"class": "lp-spread"})
 
             if not race:
                 continue
@@ -79,6 +80,7 @@ def get_polls(
                 "title": t,
                 "poll": n,
                 "result": result.text,
+                "spread": spread.text,
             }
             polling_data.append(v)
 
