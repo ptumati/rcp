@@ -3,9 +3,7 @@
 import argparse
 import sys
 
-from prettytable import PrettyTable
-
-from .rcp import get_poll_data, to_csv
+from .rcp import get_poll_data, to_csv, create_table
 
 parser = argparse.ArgumentParser()
 parser.add_argument("url", nargs="+", help="The url of the polling data.")
@@ -25,13 +23,8 @@ def generate_filename(url):
 
 def main():
     if args.table:
-        x = PrettyTable()
-        td = get_poll_data(args.url[0])
-        x.field_names = list(td[0]["data"][0].keys())
-        x.align = "l"
-        for row in td[0]["data"]:
-            x.add_row(row.values())
-        print(x)
+        x = get_poll_data(args.url[0])
+        print(create_table(x))
         sys.exit(0)
     for url in args.url:
         filename = generate_filename(url)

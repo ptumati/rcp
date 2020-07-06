@@ -1,16 +1,7 @@
-from rcp import get_poll_data
-from prettytable import PrettyTable
-
-x = PrettyTable()
+from rcp import get_poll_data, create_table
 
 td = get_poll_data(
-    "https://www.realclearpolitics.com/epolls/other/president_trump_job_approval-6179.html"
+    "https://www.realclearpolitics.com/epolls/2020/president/me/maine_trump_vs_biden-6922.html"
 )
 
-x.field_names = list(td[0]["data"][0].keys())
-x.align = "l"
-
-for row in td[0]["data"]:
-    x.add_row(row.values())
-
-print(x)
+print(create_table(td, html_format=True))

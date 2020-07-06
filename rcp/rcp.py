@@ -17,7 +17,20 @@ def _html(url):
         return soup
 
 
-def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=None, state=None):
+def create_table(p, html_format=False):
+    from prettytable import PrettyTable
+
+    x = PrettyTable()
+    x.field_names = list(p[0]["data"][0].keys())
+    x.align = "l"
+    for row in p[0]["data"]:
+        x.add_row(row.values())
+    return x.get_html_string() if html_format else x
+
+
+def get_polls(
+    url="%s/epolls/latest_polls/" % base, candidate=None, pollster=None, state=None
+):
     """
     :param state: The state to get polling data for.
     :param url: The URL of the polls. By default this function will search the latest polls on RCP.
@@ -44,9 +57,9 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
             n = col.find("td", {"class": "lp-poll"}).find("a").text
 
             if (
-                    (candidate and candidate.lower() not in t.lower())
-                    or (pollster and pollster.lower() not in n.lower())
-                    or (state and state.lower() not in t.lower())
+                (candidate and candidate.lower() not in t.lower())
+                or (pollster and pollster.lower() not in n.lower())
+                or (state and state.lower() not in t.lower())
             ):
                 continue
 
@@ -54,7 +67,7 @@ def get_polls(url="%s/epolls/latest_polls/" % base, candidate=None, pollster=Non
                 "url": base + race.find("a")["href"],
                 "title": t,
                 "poll": n,
-                "result": result.text
+                "result": result.text,
             }
             polling_data.append(v)
 
