@@ -108,7 +108,15 @@ def get_poll_data(poll, csv_output=False):
 
     for row in rows:
         cols = row.find_all(["th", "td"])
-        p.append([ele.text.strip() for ele in cols])
+        tmp = []
+        for ele in cols:
+            if ele.find("a", {"class": "normal_pollster_name"}):
+                tmp.append(
+                    ele.find("a", {"class": "normal_pollster_name"}).text.strip()
+                )
+            else:
+                tmp.append(ele.text.strip())
+        p.append(tmp)
 
     if csv_output:
         return p
