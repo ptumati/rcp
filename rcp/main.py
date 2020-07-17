@@ -17,7 +17,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-def generate_filename(url):
+def generate_filename(url: str):
     return args.output if args.output else url.rsplit("/", 1)[-1][:-5] + ".csv"
 
 

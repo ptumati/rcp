@@ -44,7 +44,7 @@ class RCPTest(unittest.TestCase):
 
     def test_get_polling_data_invalid_url(self):
         polling_data = get_poll_data("https://www.rcp.com")
-        self.assertIsNone(polling_data)
+        self.assertFalse(polling_data)
 
     def test_create_table(self):
         td = get_poll_data(
