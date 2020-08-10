@@ -62,7 +62,7 @@ Search for Fox News poll numbers for Trump:
         td = get_poll_data(poll['url'])
         pprint(td)
 
-The will return the data structured like this:
+This function will return data structured like this:
 
 .. code-block::
 
